@@ -1,14 +1,23 @@
+# Counter
+
+Steps taken to get to final result
+
+```
 import React, { Component } from "react";
 
 class Counter extends Component {
 
+    constructor() {
+      super();
+      this.handleIncrement.bind(this);
+    }
+
+  handleIncrement() {
+      console.log("increment clicked");
+    }
   state = {
     count: 3,
     tags: [],
-  };
-
-  handleIncrement = () => {
-    console.log("increment clicked", this);
   };
 
   formatCount() {
@@ -56,3 +65,6 @@ class Counter extends Component {
 }
 
 export default Counter;
+```
+
+
