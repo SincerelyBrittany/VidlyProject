@@ -1,20 +1,22 @@
 import React from "react";
 
 const Movie = (props) => {
-  const { title, numberInStock, dailyRentalRate, genre } = props.movie;
-  console.log(props);
+  const { _id, title, numberInStock, dailyRentalRate, genre } = props.movie;
+
   return (
-    <>
-      <td>{title}</td>
-      <td>{genre.name}</td>
-      <td>{numberInStock}</td>
-      <td>{dailyRentalRate}</td>
-      <td>
-        <button onClick={() => props.handleOnClick(props.movie._id)}>
-          Delete
-        </button>
-      </td>
-    </>
+    <React.Fragment>
+      <tr>
+        <td>{title}</td>
+        <td>{genre.name}</td>
+        <td>{numberInStock}</td>
+        <td>{dailyRentalRate}</td>
+        <td>
+          <button onClick={() => props.handleOnClick(props.movie)}>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </React.Fragment>
   );
 };
 
