@@ -1,12 +1,13 @@
 import React from "react";
 import { getMovies } from "../services/fakeMovieService";
+import Movie from "./movie";
 
 const Vidly = () => {
   const [movies, setMovies] = React.useState();
 
   React.useEffect(() => {
-    const _getMovies = () => {
-      const _movies = getMovies();
+    const _getMovies = async () => {
+      const _movies = await getMovies();
       setMovies(_movies || []);
     };
     _getMovies();
@@ -14,6 +15,12 @@ const Vidly = () => {
 
   const handleDeleteButton = (id) => {
     console.log("here", id);
+    var array = [...movies]; // make a separate copy of the array
+    var index = array.indexOf(id);
+    if (index !== -1) {
+      array.splice(index, 1);
+      this.setState({ movies: array });
+    }
   };
   return (
     <main className="container">
@@ -30,16 +37,12 @@ const Vidly = () => {
         {movies &&
           movies.map((movie) => (
             <tbody>
-              <tr key={movie._id}>
-                <td>{movie.title}</td>
-                <td>{movie.genre.name}</td>
-                <td>{movie.numberInStock}</td>
-                <td>{movie.dailyRentalRate}</td>
-                <td>
-                  <button onClick={() => handleDeleteButton(movie._id)}>
-                    Delete
-                  </button>
-                </td>
+              <tr>
+                <Movie
+                  key={movie._id}
+                  movie={movie}
+                  handleOnClick={handleDeleteButton}
+                />
               </tr>
             </tbody>
           ))}
