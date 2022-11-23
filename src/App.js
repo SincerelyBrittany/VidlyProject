@@ -1,12 +1,12 @@
 import "./App.css";
-import Counter from "./Counter-App/components/counter";
+import Counters from "./Counter-App/components/counters";
 import Vidly from "./Vidly/components/vidly";
 
 function App() {
   return (
     <div className="App">
-      {/* <Counter /> */}
-      <Vidly />
+      <Counters />
+      {/* <Vidly /> */}
     </div>
   );
 }

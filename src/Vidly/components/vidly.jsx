@@ -17,6 +17,9 @@ const Vidly = () => {
     const moviesCopy = movies.filter((m) => m._id !== movie._id);
     setMovies(moviesCopy);
   };
+
+  if (movies && movies.length === 0) return <p> There are no movies </p>;
+
   return (
     <main className="container">
       <h1> Showing {movies && movies.length} movies in database.</h1>
