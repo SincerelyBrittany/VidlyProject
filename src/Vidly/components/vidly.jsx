@@ -1,6 +1,7 @@
 import React from "react";
 import { getMovies, deleteMovie } from "../services/fakeMovieService";
 import Movie from "./movie";
+import Like from "../common/like";
 
 const Vidly = () => {
   const [movies, setMovies] = React.useState();
@@ -18,6 +19,14 @@ const Vidly = () => {
     setMovies(moviesCopy);
   };
 
+  const handleLikedButton = (movie) => {
+    const moviesCopy = [...movies];
+    const index = moviesCopy.indexOf(movie);
+    moviesCopy[index] = { ...moviesCopy[index] };
+    moviesCopy[index].liked = !moviesCopy[index].liked;
+    setMovies(moviesCopy);
+  };
+
   if (movies && movies.length === 0) return <p> There are no movies </p>;
 
   return (
@@ -30,6 +39,8 @@ const Vidly = () => {
             <th scope="col">Genre</th>
             <th scope="col">Stock</th>
             <th scope="col">Rate</th>
+            <th scope="col">Like</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +49,8 @@ const Vidly = () => {
               <Movie
                 key={movie._id}
                 movie={movie}
+                liked={movie.liked}
+                onLiked={handleLikedButton}
                 handleOnClick={handleDeleteButton}
               />
             ))}

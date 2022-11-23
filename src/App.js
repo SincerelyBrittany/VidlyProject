@@ -58,14 +58,14 @@ function App() {
     <div className="App">
       <Navbar totalCounters={counters.filter((c) => c.value > 0).length} />
       <main className="container">
-        <Counters
+        {/* <Counters
           counters={counters}
           onReset={handleReset}
           onDelete={handleDelete}
           onIncrement={handleIncrement}
           onDecrement={handleDecrement}
-        />
-        {/* <Vidly /> */}
+        /> */}
+        <Vidly />
       </main>
     </div>
   );
