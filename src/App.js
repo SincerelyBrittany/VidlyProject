@@ -46,6 +46,14 @@ function App() {
     setCounters(countersCopy);
   };
 
+  const handleDecrement = async (counter) => {
+    const countersCopy = await [...counters];
+    const index = countersCopy.indexOf(counter);
+    countersCopy[index] = { ...counter };
+    countersCopy[index].value--;
+    setCounters(countersCopy);
+  };
+
   return (
     <div className="App">
       <Navbar totalCounters={counters.filter((c) => c.value > 0).length} />
@@ -55,6 +63,7 @@ function App() {
           onReset={handleReset}
           onDelete={handleDelete}
           onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
         />
         {/* <Vidly /> */}
       </main>
