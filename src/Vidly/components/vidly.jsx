@@ -21,7 +21,7 @@ const Vidly = () => {
   if (movies && movies.length === 0) return <p> There are no movies </p>;
 
   return (
-    <main className="container">
+    <div>
       <h1> Showing {movies && movies.length} movies in database.</h1>
       <table className="table table-light">
         <thead>
@@ -43,7 +43,7 @@ const Vidly = () => {
             ))}
         </tbody>
       </table>
-    </main>
+    </div>
   );
 };
 
