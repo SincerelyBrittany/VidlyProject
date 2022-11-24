@@ -1,6 +1,7 @@
 import React from "react";
 import Liked from "../common/like";
 
+
 const Movie = (props) => {
   const { _id, title, numberInStock, dailyRentalRate, genre, liked } =
     props.movie;
@@ -13,7 +14,11 @@ const Movie = (props) => {
         <td>{numberInStock}</td>
         <td>{dailyRentalRate}</td>
         <td>
-          <Liked liked={liked} onLiked={() => props.onLiked(props.movie)} />
+          <Liked
+            liked={liked}
+            currentPage={props.currentPage}
+            onLiked={() => props.onLiked(props.movie)}
+          />
         </td>
         <td>
           <button onClick={() => props.handleOnClick(props.movie)}>
