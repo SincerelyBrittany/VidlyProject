@@ -46,17 +46,26 @@ function App() {
     setCounters(countersCopy);
   };
 
+  const handleDecrement = async (counter) => {
+    const countersCopy = await [...counters];
+    const index = countersCopy.indexOf(counter);
+    countersCopy[index] = { ...counter };
+    countersCopy[index].value--;
+    setCounters(countersCopy);
+  };
+
   return (
     <div className="App">
       <Navbar totalCounters={counters.filter((c) => c.value > 0).length} />
       <main className="container">
-        <Counters
+        {/* <Counters
           counters={counters}
           onReset={handleReset}
           onDelete={handleDelete}
           onIncrement={handleIncrement}
-        />
-        {/* <Vidly /> */}
+          onDecrement={handleDecrement}
+        /> */}
+        <Vidly />
       </main>
     </div>
   );
