@@ -5,11 +5,16 @@ import MovieTable from "./moviesTable";
 import Pagination from "../common/pagination";
 import ListGroup from "../common/listGroup";
 import { paginate } from "../../utils/paginate";
+import _ from "lodash";
 
 const Vidly = () => {
   const [isDataLoading, setDataLoading] = React.useState(false);
   const [movies, setMovies] = React.useState([]);
   const [genres, setGenres] = React.useState([]);
+  const [sortColumn, setSortColumn] = React.useState({
+    path: "title",
+    order: "asc",
+  });
   const [selectedGenre, setSelectedGenre] = React.useState();
   const [pageSize, setPageSize] = React.useState(3);
   const [currentPage, setcurrentPage] = React.useState(1);
@@ -58,7 +63,14 @@ const Vidly = () => {
   };
 
   const handleSortButton = (path) => {
-    console.log(path);
+    let sortColumnCopy = { ...sortColumn };
+    if (sortColumnCopy.path === path)
+      sortColumnCopy.order = sortColumnCopy.order === "asc" ? "desc" : "asc";
+    else {
+      sortColumnCopy.path = path;
+      sortColumnCopy.order = "asc";
+    }
+    setSortColumn(sortColumnCopy);
   };
 
   if (movies && movies.length === 0) return <p> There are no movies </p>;
@@ -68,7 +80,9 @@ const Vidly = () => {
       ? movies.filter((m) => m.genre._id === selectedGenre._id)
       : movies;
 
-  const paginatedMovies = paginate(filtered, currentPage, pageSize);
+  const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+  const paginatedMovies = paginate(sorted, currentPage, pageSize);
 
   return (
     <div>
