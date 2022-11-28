@@ -1,32 +1,39 @@
-import React from "react";
+import React, { Component } from "react";
 import Movie from "./movie";
+import TableHeader from "../common/tableHeader";
 
-const MovieTable = (props) => {
-  const { paginatedMovies, onhandleLikedButton, onhandleDeleteButton, onSort } =
-    props;
-  return (
-    <table className="table table-light">
-      <thead>
-        <tr>
-          <th onClick={() => onSort("title")} scope="col">
-            Title
-          </th>
-          <th onClick={() => onSort("genre.name")} scope="col">
-            Genre
-          </th>
-          <th onClick={() => onSort("numberInStock")} scope="col">
-            Stock
-          </th>
-          <th onClick={() => onSort("dailyrentalrate")} scope="col">
-            Rate
-          </th>
-          <th onClick={() => onSort()} scope="col">
-            Like
-          </th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
+class MoviesTable extends Component {
+  columns = [
+    { path: "title", label: "Title" },
+    { path: "genre.name", label: "Genre" },
+    { path: "numberInStock", label: "Stock" },
+    { path: "dailyRentalRate", label: "Range" },
+    { key: "like" },
+    { key: "delete" },
+  ];
+
+  renderSortIcon = (column) => {
+    const { sortColumn } = this.props;
+    if (column.path !== sortColumn.path) return null;
+    if (sortColumn.order === "asc") return <i className="fa fa-sort-asc" />;
+    return <i className="fa fa-sort-desc" />;
+  };
+
+  render() {
+    const {
+      sortColumn,
+      paginatedMovies,
+      onhandleLikedButton,
+      onhandleDeleteButton,
+      onSort,
+    } = this.props;
+    return (
+      <table className="table table-light">
+        <TableHeader
+          columns={this.columns}
+          sortColumn={sortColumn}
+          onSort={onSort}
+        />
         {paginatedMovies.length !== 0 &&
           paginatedMovies.map((movie) => (
             <Movie
@@ -37,9 +44,9 @@ const MovieTable = (props) => {
               handleOnClick={onhandleDeleteButton}
             />
           ))}
-      </tbody>
-    </table>
-  );
-};
+      </table>
+    );
+  }
+}
 
-export default MovieTable;
+export default MoviesTable;

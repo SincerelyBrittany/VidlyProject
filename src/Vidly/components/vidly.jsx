@@ -62,14 +62,7 @@ const Vidly = () => {
     setcurrentPage(1);
   };
 
-  const handleSortButton = (path) => {
-    let sortColumnCopy = { ...sortColumn };
-    if (sortColumnCopy.path === path)
-      sortColumnCopy.order = sortColumnCopy.order === "asc" ? "desc" : "asc";
-    else {
-      sortColumnCopy.path = path;
-      sortColumnCopy.order = "asc";
-    }
+  const handleSortButton = (sortColumnCopy) => {
     setSortColumn(sortColumnCopy);
   };
 
@@ -103,6 +96,7 @@ const Vidly = () => {
             <h1> Showing {filtered.length} movies in database.</h1>
             <MovieTable
               paginatedMovies={paginatedMovies}
+              sortColumn={sortColumn}
               onhandleDeleteButton={handleDeleteButton}
               onhandleLikedButton={handleLikedButton}
               onSort={handleSortButton}
