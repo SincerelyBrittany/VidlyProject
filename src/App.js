@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar totalCounters={counters.filter((c) => c.value > 0).length} />
+      {/* <Navbar totalCounters={counters.filter((c) => c.value > 0).length} /> */}
       <main className="container">
         {/* <Counters
           counters={counters}
