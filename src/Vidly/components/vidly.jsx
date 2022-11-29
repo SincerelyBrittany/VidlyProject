@@ -68,14 +68,23 @@ const Vidly = () => {
 
   if (movies && movies.length === 0) return <p> There are no movies </p>;
 
-  const filtered =
-    selectedGenre && selectedGenre._id
-      ? movies.filter((m) => m.genre._id === selectedGenre._id)
-      : movies;
+  const getPagedData = () => {
+    const filtered =
+      selectedGenre && selectedGenre._id
+        ? movies.filter((m) => m.genre._id === selectedGenre._id)
+        : movies;
 
-  const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
-  const paginatedMovies = paginate(sorted, currentPage, pageSize);
+    const paginatedMovies = paginate(sorted, currentPage, pageSize);
+
+    return {
+      totalCount: filtered.length,
+      paginatedMovies: paginatedMovies,
+    };
+  };
+
+  const { totalCount, paginatedMovies } = getPagedData();
 
   return (
     <div>
@@ -93,7 +102,7 @@ const Vidly = () => {
             />
           </div>
           <div className="col">
-            <h1> Showing {filtered.length} movies in database.</h1>
+            <h1> Showing {totalCount} movies in database.</h1>
             <MovieTable
               paginatedMovies={paginatedMovies}
               sortColumn={sortColumn}
@@ -102,7 +111,7 @@ const Vidly = () => {
               onSort={handleSortButton}
             />
             <Pagination
-              itemsCount={filtered.length}
+              itemsCount={totalCount}
               pageSize={pageSize}
               onPageChange={handlePageChange}
               currentPage={currentPage}

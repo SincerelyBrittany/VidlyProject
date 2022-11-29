@@ -2,8 +2,8 @@ import React from "react";
 import Liked from "../common/like";
 import _ from "lodash";
 
-const TableBody = (props) => {
-  const { data, columns } = props;
+const TableBody = ({ data, columns }) => {
+  //   const { data, columns } = props;
 
   const renderCell = (item, column) => {
     if (column.content) {

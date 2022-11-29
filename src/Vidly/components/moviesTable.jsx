@@ -3,6 +3,7 @@ import Movie from "./movie";
 import Liked from "../common/like";
 import TableHeader from "../common/tableHeader";
 import TableBody from "../common/tableBody";
+import Table from "../common/table";
 
 class MoviesTable extends Component {
   columns = [
@@ -46,24 +47,30 @@ class MoviesTable extends Component {
       onSort,
     } = this.props;
     return (
-      <table className="table table-light">
-        <TableHeader
-          columns={this.columns}
-          sortColumn={sortColumn}
-          onSort={onSort}
-        />
-        <TableBody data={paginatedMovies} columns={this.columns} />
-        {/* {paginatedMovies.length !== 0 &&
-          paginatedMovies.map((movie) => (
-            <Movie
-              key={movie._id}
-              movie={movie}
-              liked={movie.liked}
-              onLiked={onhandleLikedButton}
-              handleOnClick={onhandleDeleteButton}
-            />
-          ))} */}
-      </table>
+      <Table
+        columns={this.columns}
+        onSort={onSort}
+        sortColumn={sortColumn}
+        data={paginatedMovies}
+      />
+      //   <table className="table table-light">
+      //     <TableHeader
+      //       columns={this.columns}
+      //       sortColumn={sortColumn}
+      //       onSort={onSort}
+      //     />
+      //     <TableBody data={paginatedMovies} columns={this.columns} />
+      //     {/* {paginatedMovies.length !== 0 &&
+      //       paginatedMovies.map((movie) => (
+      //         <Movie
+      //           key={movie._id}
+      //           movie={movie}
+      //           liked={movie.liked}
+      //           onLiked={onhandleLikedButton}
+      //           handleOnClick={onhandleDeleteButton}
+      //         />
+      //       ))} */}
+      //   </table>
     );
   }
 }
