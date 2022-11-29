@@ -1,13 +1,12 @@
 import React from "react";
 import Liked from "../common/like";
 
-
 const Movie = (props) => {
   const { _id, title, numberInStock, dailyRentalRate, genre, liked } =
     props.movie;
 
   return (
-    <React.Fragment>
+    <tbody>
       <tr>
         <td>{title}</td>
         <td>{genre.name}</td>
@@ -26,7 +25,7 @@ const Movie = (props) => {
           </button>
         </td>
       </tr>
-    </React.Fragment>
+    </tbody>
   );
 };
 
