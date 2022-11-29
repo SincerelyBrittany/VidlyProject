@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Input from "../common/input";
 
 class LoginForm extends Component {
   state = {
@@ -9,9 +10,9 @@ class LoginForm extends Component {
   //     this.username.current.focus();
   //   }
 
-  handleChange = (e) => {
+  handleChange = ({ currentTarget: input }) => {
     const accountCopy = { ...this.state.account };
-    accountCopy.username = e.currentTarget.value;
+    accountCopy[input.name] = input.value;
     this.setState({ account: accountCopy });
   };
   handleSubmit = (e) => {
@@ -25,13 +26,26 @@ class LoginForm extends Component {
       <div>
         <h1> Login </h1>
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
+          <Input
+            name="username"
+            value={this.state.account.username}
+            label="Username"
+            onChange={this.handleChange}
+          />
+          <Input
+            name="password"
+            value={this.state.account.password}
+            label="Password"
+            onChange={this.handleChange}
+          />
+          {/* <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
               value={this.state.account.username}
               autoFocus
               //   ref={this.username}
               onChange={this.handleChange}
+              name="username"
               id="username"
               type="text"
               className="form-control"
@@ -39,8 +53,15 @@ class LoginForm extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" type="text" className="form-control" />
-          </div>
+            <input
+              id="password"
+              name="password"
+              type="text"
+              className="form-control"
+              value={this.state.account.password}
+              onChange={this.handleChange}
+            />
+          </div> */}
           <button className="btn btn-primary">Login </button>
         </form>
       </div>
