@@ -13,7 +13,6 @@ class TableHeader extends Component {
   };
 
   render() {
-    console.log(this.props, "this is props");
     return (
       <thead>
         <tr>
