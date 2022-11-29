@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Movie from "./movie";
+import Liked from "../common/like";
 import TableHeader from "../common/tableHeader";
+import TableBody from "../common/tableBody";
 
 class MoviesTable extends Component {
   columns = [
@@ -8,7 +10,7 @@ class MoviesTable extends Component {
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Range" },
-    { key: "like" },
+    { key: "like", content: <Liked /> },
     { key: "delete" },
   ];
 
@@ -34,7 +36,8 @@ class MoviesTable extends Component {
           sortColumn={sortColumn}
           onSort={onSort}
         />
-        {paginatedMovies.length !== 0 &&
+        <TableBody data={paginatedMovies} columns={this.columns} />
+        {/* {paginatedMovies.length !== 0 &&
           paginatedMovies.map((movie) => (
             <Movie
               key={movie._id}
@@ -43,7 +46,7 @@ class MoviesTable extends Component {
               onLiked={onhandleLikedButton}
               handleOnClick={onhandleDeleteButton}
             />
-          ))}
+          ))} */}
       </table>
     );
   }
