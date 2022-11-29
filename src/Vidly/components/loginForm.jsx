@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Joi from "joi-browser";
 import Input from "../common/input";
 
 class LoginForm extends Component {
@@ -6,6 +7,17 @@ class LoginForm extends Component {
     account: { username: "", password: "" },
     errors: {},
   };
+
+  schema = {
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
+
+  // schema = Joi.object({
+  //   username: Joi.string().required(),
+
+  //   password: Joi.string().required(),
+  // });
 
   validateProperty = (input) => {
     if (input.name === "username") {
@@ -28,12 +40,19 @@ class LoginForm extends Component {
   };
 
   validate = () => {
+    const result = Joi.validate(this.state.account, this.schema, {
+      abortEarly: false,
+    });
+    if (!result.error) return null;
     const errors = {};
-    if (this.state.account.username.trim() === "")
-      errors.username = "Username is required";
-    if (this.state.account.password.trim() === "")
-      errors.password = "Password is required";
-    return Object.keys(errors).length === 0 ? null : errors;
+    for (let item of result.error.details) errors[item.path[0]] = item.message;
+    return errors;
+    // const errors = {};
+    // if (this.state.account.username.trim() === "")
+    //   errors.username = "Username is required";
+    // if (this.state.account.password.trim() === "")
+    //   errors.password = "Password is required";
+    // return Object.keys(errors).length === 0 ? null : errors;
   };
 
   handleSubmit = (e) => {
