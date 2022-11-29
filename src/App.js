@@ -10,6 +10,7 @@ import NotFound from "./Vidly/components/notFound";
 
 import "./App.css";
 import MovieForm from "./Vidly/components/movieForm";
+import LoginForm from "./Vidly/components/loginForm";
 
 function App() {
   const [counters, setCounters] = React.useState([
@@ -60,6 +61,7 @@ function App() {
     setCounters(countersCopy);
   };
 
+  console.warn = () => {};
   return (
     <div className="App">
       {/* <Navbar totalCounters={counters.filter((c) => c.value > 0).length} /> */}
@@ -82,6 +84,7 @@ function App() {
             )}
           ></Route>
           <Route path="/customers" component={Customers}></Route>
+          <Route path="/login" component={LoginForm}></Route>
           <Route path="/rentals" component={Rentals}></Route>
           <Route path="/not-found" component={NotFound}></Route>
           <Redirect from="/" exact to="movies" />
