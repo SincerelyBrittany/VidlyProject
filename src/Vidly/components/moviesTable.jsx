@@ -10,8 +10,24 @@ class MoviesTable extends Component {
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Range" },
-    { key: "like", content: <Liked /> },
-    { key: "delete" },
+    {
+      key: "like",
+      content: (movie) => (
+        <Liked
+          liked={movie.liked}
+          currentPage={this.props.currentPage}
+          onLiked={() => this.props.onhandleLikedButton(movie)}
+        />
+      ),
+    },
+    {
+      key: "delete",
+      content: (movie) => (
+        <button onClick={() => this.props.onhandleDeleteButton(movie)}>
+          Delete
+        </button>
+      ),
+    },
   ];
 
   renderSortIcon = (column) => {
