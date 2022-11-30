@@ -32,7 +32,7 @@ class LoginForm extends Form {
             error={this.state.errors.username}
           /> */}
           {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password")}
+          {this.renderInput("password", "Password", "password")}
           {/* <Input
             name="password"
             value={this.state.data.password}
