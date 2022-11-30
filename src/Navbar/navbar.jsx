@@ -53,6 +53,11 @@ const Navbar = (props) => {
               Login
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/signup">
+              Register
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
