@@ -90,6 +90,8 @@ const Vidly = () => {
           : movies;
     }
 
+    console.log(filtered);
+
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const paginatedMovies = paginate(sorted, currentPage, pageSize);
     return {
