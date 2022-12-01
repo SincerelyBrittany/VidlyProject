@@ -4,7 +4,7 @@ export default function ListGroup(props) {
   const { genres, textProperty, valueProperty, onGenreSelect, selectedGenre } =
     props;
   return (
-    <ul className="list-group">
+    <ul className="list-group" style={{ marginTop: 113 }}>
       {genres.map((genre) => {
         return (
           <li

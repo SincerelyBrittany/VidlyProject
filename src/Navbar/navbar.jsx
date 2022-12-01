@@ -48,6 +48,16 @@ const Navbar = (props) => {
               Counters
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/login">
+              Login
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/signup">
+              Register
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
