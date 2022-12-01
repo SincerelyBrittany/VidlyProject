@@ -1,9 +1,15 @@
 import React from "react";
-import "./App.css";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 import Counters from "./Counter-App/components/counters";
 import Vidly from "./Vidly/components/vidly";
 import Navbar from "./Navbar/navbar";
+import Customers from "./Vidly/components/customers";
+import Rentals from "./Vidly/components/rentals";
+import NotFound from "./Vidly/components/notFound";
+
+import "./App.css";
+import MovieForm from "./Vidly/components/movieForm";
 
 function App() {
   const [counters, setCounters] = React.useState([
@@ -57,15 +63,37 @@ function App() {
   return (
     <div className="App">
       {/* <Navbar totalCounters={counters.filter((c) => c.value > 0).length} /> */}
+      <Navbar />
       <main className="container">
-        {/* <Counters
+        <Switch>
+          <Route path="/movies/:id" component={MovieForm}></Route>
+          <Route path="/movies" component={Vidly}></Route>
+          <Route
+            path="/counters"
+            render={(props) => (
+              <Counters
+                {...props}
+                counters={counters}
+                onReset={handleReset}
+                onDelete={handleDelete}
+                onIncrement={handleIncrement}
+                onDecrement={handleDecrement}
+              />
+            )}
+          ></Route>
+          <Route path="/customers" component={Customers}></Route>
+          <Route path="/rentals" component={Rentals}></Route>
+          <Route path="/not-found" component={NotFound}></Route>
+          <Redirect from="/" exact to="movies" />
+          <Redirect to="/not-found" />
+          {/* <Counters
           counters={counters}
           onReset={handleReset}
           onDelete={handleDelete}
           onIncrement={handleIncrement}
           onDecrement={handleDecrement}
         /> */}
-        <Vidly />
+        </Switch>
       </main>
     </div>
   );
