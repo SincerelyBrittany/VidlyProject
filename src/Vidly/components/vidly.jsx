@@ -6,6 +6,7 @@ import Pagination from "../common/pagination";
 import ListGroup from "../common/listGroup";
 import { paginate } from "../../utils/paginate";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 const Vidly = () => {
   const [isDataLoading, setDataLoading] = React.useState(false);
@@ -102,6 +103,14 @@ const Vidly = () => {
             />
           </div>
           <div className="col">
+            <Link
+              to="movies/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+            >
+              New Movies
+            </Link>
+
             <h1> Showing {totalCount} movies in database.</h1>
             <MovieTable
               paginatedMovies={paginatedMovies}
