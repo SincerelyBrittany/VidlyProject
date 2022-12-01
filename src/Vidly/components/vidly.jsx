@@ -7,6 +7,7 @@ import ListGroup from "../common/listGroup";
 import { paginate } from "../../utils/paginate";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import SearchBox from "./searchBox";
 
 const Vidly = () => {
   const [isDataLoading, setDataLoading] = React.useState(false);
@@ -19,10 +20,11 @@ const Vidly = () => {
   const [selectedGenre, setSelectedGenre] = React.useState();
   const [pageSize, setPageSize] = React.useState(3);
   const [currentPage, setcurrentPage] = React.useState(1);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const fetchMovies = async () => {
     const response = await getMovies();
-    setMovies((response && response) || []);
+    setMovies(response && response);
     setDataLoading(false);
   };
   React.useEffect(() => {
@@ -63,6 +65,12 @@ const Vidly = () => {
     setcurrentPage(1);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setSelectedGenre(null);
+    setcurrentPage(1);
+  };
+
   const handleSortButton = (sortColumnCopy) => {
     setSortColumn(sortColumnCopy);
   };
@@ -70,15 +78,20 @@ const Vidly = () => {
   if (movies && movies.length === 0) return <p> There are no movies </p>;
 
   const getPagedData = () => {
-    const filtered =
-      selectedGenre && selectedGenre._id
-        ? movies.filter((m) => m.genre._id === selectedGenre._id)
-        : movies;
+    let filtered;
+    if (searchQuery) {
+      filtered = movies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    } else {
+      filtered =
+        selectedGenre && selectedGenre._id
+          ? movies.filter((m) => m.genre._id === selectedGenre._id)
+          : movies;
+    }
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
-
     const paginatedMovies = paginate(sorted, currentPage, pageSize);
-
     return {
       totalCount: filtered.length,
       paginatedMovies: paginatedMovies,
@@ -112,6 +125,7 @@ const Vidly = () => {
             </Link>
 
             <h1> Showing {totalCount} movies in database.</h1>
+            <SearchBox value={searchQuery} onChange={handleSearch} />
             <MovieTable
               paginatedMovies={paginatedMovies}
               sortColumn={sortColumn}
