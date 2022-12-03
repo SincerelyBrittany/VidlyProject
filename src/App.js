@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Counters from "./Counter-App/components/counters";
 import Vidly from "./Vidly/components/vidly";
@@ -7,11 +8,12 @@ import Navbar from "./Navbar/navbar";
 import Customers from "./Vidly/components/customers";
 import Rentals from "./Vidly/components/rentals";
 import NotFound from "./Vidly/components/notFound";
-
-import "./App.css";
 import MovieForm from "./Vidly/components/movieForm";
 import LoginForm from "./Vidly/components/loginForm";
 import RegistrationForm from "./Vidly/components/registrationForm";
+
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [counters, setCounters] = React.useState([
@@ -66,6 +68,7 @@ function App() {
   return (
     <div className="App">
       {/* <Navbar totalCounters={counters.filter((c) => c.value > 0).length} /> */}
+      <ToastContainer />
       <Navbar />
       <main className="container">
         <Switch>
