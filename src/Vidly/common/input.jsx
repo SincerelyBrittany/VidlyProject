@@ -2,7 +2,6 @@ import React from "react";
 
 const Input = (props) => {
   const { name, label, error, ...rest } = props;
-  console.log(error);
   return (
     <>
       <div className="form-group">

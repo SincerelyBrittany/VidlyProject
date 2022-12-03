@@ -36,7 +36,6 @@ const Vidly = () => {
 
   const fetchGenres = async () => {
     const { data } = await getGenres();
-    console.log(data, "this is data");
     const genres = [{ _id: "", name: "All Genres" }, ...data];
     setGenres(genres || []);
     // const response = await getGenres();
@@ -105,8 +104,6 @@ const Vidly = () => {
           ? movies.filter((m) => m.genre._id === selectedGenre._id)
           : movies;
     }
-
-    console.log(filtered);
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const paginatedMovies = paginate(sorted, currentPage, pageSize);
