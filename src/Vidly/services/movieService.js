@@ -10,7 +10,12 @@ export function getMovie(id) {
 }
 
 export function saveMovie(movie) {
-  console.log("in movie");
+  if (movie._id) {
+    const body = { ...movie };
+    delete body._id;
+    return http.put("http://localhost:3900/api/movies" + "/" + movie._id, body);
+  }
+  return http.post("http://localhost:3900/api/movies", movie);
 }
 
 export function deleteMovie(id) {
