@@ -23,8 +23,13 @@ class LoginForm extends Form {
         this.state.data.password
       );
       localStorage.setItem("token", jwt);
-      this.props.history.push("/");
-      console.log(jwt, "this isjwt");
+
+      // this.props.history.push("/");
+      // console.log(jwt, "this isjwt");
+
+      //must do a full reload so must updat ethe window and not just reroute
+
+      window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -40,7 +45,7 @@ class LoginForm extends Form {
         <h1> Login </h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password")}
+          {this.renderInput("password", "Password", "password")}
           {this.renderButton("Login")}
         </form>
       </div>
