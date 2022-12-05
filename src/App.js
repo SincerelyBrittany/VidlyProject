@@ -11,6 +11,7 @@ import Rentals from "./Vidly/components/rentals";
 import NotFound from "./Vidly/components/notFound";
 import MovieForm from "./Vidly/components/movieForm";
 import LoginForm from "./Vidly/components/loginForm";
+import Logout from "./Vidly/components/logout";
 import RegistrationForm from "./Vidly/components/registrationForm";
 
 import "./App.css";
@@ -25,10 +26,7 @@ class App extends Component {
       const user = jwtDecode(jwt);
       this.setState({ user });
       console.log(user);
-    } catch (error) {
-      
-    }
-  
+    } catch (error) {}
   }
 
   handleDelete = async (counterId) => {
@@ -85,6 +83,7 @@ class App extends Component {
               ></Route>
               <Route path="/customers" component={Customers}></Route>
               <Route path="/login" component={LoginForm}></Route>
+              <Route path="/logout" component={Logout}></Route>
               <Route path="/signup" component={RegistrationForm}></Route>
               <Route path="/rentals" component={Rentals}></Route>
               <Route path="/not-found" component={NotFound}></Route>
