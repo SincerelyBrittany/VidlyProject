@@ -1,12 +1,15 @@
 import React from "react";
-import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { getMovies } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 import MovieTable from "./moviesTable";
 import Pagination from "../common/pagination";
 import ListGroup from "../common/listGroup";
 import { paginate } from "../../utils/paginate";
 import _ from "lodash";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import SearchBox from "./searchBox";
+import { deleteMovie } from "../services/movieService";
 
 const Vidly = () => {
   const [isDataLoading, setDataLoading] = React.useState(false);
@@ -19,10 +22,11 @@ const Vidly = () => {
   const [selectedGenre, setSelectedGenre] = React.useState();
   const [pageSize, setPageSize] = React.useState(3);
   const [currentPage, setcurrentPage] = React.useState(1);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   const fetchMovies = async () => {
-    const response = await getMovies();
-    setMovies((response && response) || []);
+    const { data: movies } = await getMovies();
+    setMovies(movies);
     setDataLoading(false);
   };
   React.useEffect(() => {
@@ -31,19 +35,32 @@ const Vidly = () => {
   }, []);
 
   const fetchGenres = async () => {
-    const response = await getGenres();
-    const genres = [{ _id: "", name: "All Genres" }, ...response];
+    const { data } = await getGenres();
+    const genres = [{ _id: "", name: "All Genres" }, ...data];
     setGenres(genres || []);
-    setDataLoading(false);
+    // const response = await getGenres();
+    // const genres = [{ _id: "", name: "All Genres" }, ...response];
+    // setGenres(genres || []);
+    // setDataLoading(false);
   };
+
   React.useEffect(() => {
     setDataLoading(true);
     fetchGenres();
   }, []);
 
-  const handleDeleteButton = (movie) => {
-    const moviesCopy = movies.filter((m) => m._id !== movie._id);
+  const handleDeleteButton = async (movie) => {
+    const originalMovies = movies;
+    const moviesCopy = originalMovies.filter((m) => m._id !== movie._id);
     setMovies(moviesCopy);
+    try {
+      await deleteMovie(movie._id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        toast.error("this movie has already been deleted");
+        setMovies(originalMovies);
+      }
+    }
   };
 
   const handleLikedButton = (movie) => {
@@ -63,6 +80,12 @@ const Vidly = () => {
     setcurrentPage(1);
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    setSelectedGenre(null);
+    setcurrentPage(1);
+  };
+
   const handleSortButton = (sortColumnCopy) => {
     setSortColumn(sortColumnCopy);
   };
@@ -70,15 +93,20 @@ const Vidly = () => {
   if (movies && movies.length === 0) return <p> There are no movies </p>;
 
   const getPagedData = () => {
-    const filtered =
-      selectedGenre && selectedGenre._id
-        ? movies.filter((m) => m.genre._id === selectedGenre._id)
-        : movies;
+    let filtered;
+    if (searchQuery) {
+      filtered = movies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    } else {
+      filtered =
+        selectedGenre && selectedGenre._id
+          ? movies.filter((m) => m.genre._id === selectedGenre._id)
+          : movies;
+    }
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
-
     const paginatedMovies = paginate(sorted, currentPage, pageSize);
-
     return {
       totalCount: filtered.length,
       paginatedMovies: paginatedMovies,
@@ -112,6 +140,7 @@ const Vidly = () => {
             </Link>
 
             <h1> Showing {totalCount} movies in database.</h1>
+            <SearchBox value={searchQuery} onChange={handleSearch} />
             <MovieTable
               paginatedMovies={paginatedMovies}
               sortColumn={sortColumn}

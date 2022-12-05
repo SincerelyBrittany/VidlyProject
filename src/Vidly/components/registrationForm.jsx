@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
 import Form from "../common/form";
+// import { Register } from "../services/userService";
+import * as userService from "../services/userService";
 
 class RegistrationForm extends Form {
   state = {
@@ -14,8 +16,21 @@ class RegistrationForm extends Form {
     name: Joi.string().required().label("Name"),
   };
 
-  doSubmit = () => {
-    console.log("submitted");
+  doSubmit = async () => {
+    try {
+      const response = await userService.register(this.state.data);
+      localStorage.setItem("token", response.headers["x-auth-token"]);
+      // this.props.history.push("/");
+      //must do a full reload so must updat ethe window and not just reroute
+
+      window.location = "/";
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
