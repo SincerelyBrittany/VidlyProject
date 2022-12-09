@@ -66,7 +66,13 @@ class App extends Component {
           <Navbar user={this.state.user} />
           <main className="container">
             <Switch>
-              <Route path="/movies/:id" component={MovieForm}></Route>
+              <Route
+                path="/movies/:id"
+                render={(props) => {
+                  if (!this.state.user) return <Redirect to="/login" />;
+                  return <MovieForm {...props} user={this.state.user} />;
+                }}
+              />
               <Route
                 path="/movies"
                 render={(props) => <Vidly {...props} user={this.state.user} />}
