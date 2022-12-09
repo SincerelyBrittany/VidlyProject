@@ -5,8 +5,24 @@ import TableHeader from "../common/tableHeader";
 import TableBody from "../common/tableBody";
 import Table from "../common/table";
 import { Link } from "react-router-dom";
+import authService from "../services/authService";
 
 class MoviesTable extends Component {
+  deleteColumn = {
+    key: "delete",
+    content: (movie) => (
+      <button onClick={() => this.props.onhandleDeleteButton(movie)}>
+        Delete
+      </button>
+    ),
+  };
+  constructor() {
+    super();
+    const user = authService.getCurrentUser();
+    if (user && user.isAdmin) {
+      this.columns.push(this.deleteColumn);
+    }
+  }
   columns = [
     {
       path: "title",
@@ -26,14 +42,6 @@ class MoviesTable extends Component {
           currentPage={this.props.currentPage}
           onLiked={() => this.props.onhandleLikedButton(movie)}
         />
-      ),
-    },
-    {
-      key: "delete",
-      content: (movie) => (
-        <button onClick={() => this.props.onhandleDeleteButton(movie)}>
-          Delete
-        </button>
       ),
     },
   ];
