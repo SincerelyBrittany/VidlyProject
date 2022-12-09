@@ -18,11 +18,10 @@ class LoginForm extends Form {
 
   doSubmit = async () => {
     try {
-      const { data: jwt } = await authService.login(
+      await authService.login(
         this.state.data.username,
         this.state.data.password
       );
-      localStorage.setItem("token", jwt);
 
       // this.props.history.push("/");
       // console.log(jwt, "this isjwt");

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import SearchBox from "./searchBox";
 import { deleteMovie } from "../services/movieService";
 
-const Vidly = () => {
+const Vidly = (props) => {
   const [isDataLoading, setDataLoading] = React.useState(false);
   const [movies, setMovies] = React.useState([]);
   const [genres, setGenres] = React.useState([]);
@@ -131,13 +131,15 @@ const Vidly = () => {
             />
           </div>
           <div className="col">
-            <Link
-              to="movies/new"
-              className="btn btn-primary"
-              style={{ marginBottom: 20 }}
-            >
-              New Movies
-            </Link>
+            {props.user && (
+              <Link
+                to="movies/new"
+                className="btn btn-primary"
+                style={{ marginBottom: 20 }}
+              >
+                New Movies
+              </Link>
+            )}
 
             <h1> Showing {totalCount} movies in database.</h1>
             <SearchBox value={searchQuery} onChange={handleSearch} />

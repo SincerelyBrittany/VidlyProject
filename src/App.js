@@ -67,7 +67,10 @@ class App extends Component {
           <main className="container">
             <Switch>
               <Route path="/movies/:id" component={MovieForm}></Route>
-              <Route path="/movies" component={Vidly}></Route>
+              <Route
+                path="/movies"
+                render={(props) => <Vidly {...props} user={this.state.user} />}
+              />
               <Route
                 path="/counters"
                 render={(props) => (
