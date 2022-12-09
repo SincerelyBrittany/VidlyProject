@@ -13,6 +13,7 @@ import MovieForm from "./Vidly/components/movieForm";
 import LoginForm from "./Vidly/components/loginForm";
 import Logout from "./Vidly/components/logout";
 import RegistrationForm from "./Vidly/components/registrationForm";
+import ProtectRoute from "./Vidly/common/protectRoute";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -66,13 +67,14 @@ class App extends Component {
           <Navbar user={this.state.user} />
           <main className="container">
             <Switch>
-              <Route
+              {/* <Route
                 path="/movies/:id"
                 render={(props) => {
                   if (!this.state.user) return <Redirect to="/login" />;
                   return <MovieForm {...props} user={this.state.user} />;
                 }}
-              />
+              /> */}
+              <ProtectRoute path="/movies/:id" component={MovieForm} />
               <Route
                 path="/movies"
                 render={(props) => <Vidly {...props} user={this.state.user} />}
