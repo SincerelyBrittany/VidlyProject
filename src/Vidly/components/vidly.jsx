@@ -38,10 +38,6 @@ const Vidly = (props) => {
     const { data } = await getGenres();
     const genres = [{ _id: "", name: "All Genres" }, ...data];
     setGenres(genres || []);
-    // const response = await getGenres();
-    // const genres = [{ _id: "", name: "All Genres" }, ...response];
-    // setGenres(genres || []);
-    // setDataLoading(false);
   };
 
   React.useEffect(() => {

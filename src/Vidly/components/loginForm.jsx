@@ -23,14 +23,6 @@ class LoginForm extends Form {
         this.state.data.username,
         this.state.data.password
       );
-
-      // this.props.history.push("/");
-      // console.log(jwt, "this isjwt");
-
-      //must do a full reload so must updat ethe window and not just reroute
-
-      // window.location = "/";
-
       const { state } = this.props.location;
       window.location = state ? state.from.pathname : "/";
     } catch (ex) {

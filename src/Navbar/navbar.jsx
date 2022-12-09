@@ -3,14 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = ({ user }) => {
   return (
-    // <nav className="navbar navbar-light bg-light">
-    //   <NavLink className="navbar-brand" to="#">
-    //     Navbar
-    //     <span className="badge badge-pill badge-secondary">
-    //       {props.totalCounters}
-    //     </span>
-    //   </NavLink>
-    // </nav>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
         Vidly

@@ -26,7 +26,6 @@ class App extends Component {
       const jwt = localStorage.getItem("token");
       const user = jwtDecode(jwt);
       this.setState({ user });
-      console.log(user);
     } catch (error) {}
   }
 
@@ -67,13 +66,6 @@ class App extends Component {
           <Navbar user={this.state.user} />
           <main className="container">
             <Switch>
-              {/* <Route
-                path="/movies/:id"
-                render={(props) => {
-                  if (!this.state.user) return <Redirect to="/login" />;
-                  return <MovieForm {...props} user={this.state.user} />;
-                }}
-              /> */}
               <ProtectRoute path="/movies/:id" component={MovieForm} />
               <Route
                 path="/movies"
