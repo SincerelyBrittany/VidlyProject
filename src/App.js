@@ -19,7 +19,27 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
-  state = {};
+  state = {
+    counters: [
+      {
+        id: 1,
+        value: 4,
+      },
+      {
+        id: 2,
+        value: 0,
+      },
+      {
+        id: 3,
+        value: 0,
+      },
+      {
+        id: 4,
+        value: 0,
+      },
+    ],
+    errors: {},
+  };
 
   componentDidMount() {
     try {
@@ -30,32 +50,44 @@ class App extends Component {
   }
 
   handleDelete = async (counterId) => {
-    // const countersCopy = await counters.filter((c) => c.id !== counterId);
-    // setCounters(countersCopy);
+    const countersCopy = await this.state.counters.filter(
+      (c) => c.id !== counterId
+    );
+
+    this.setState({
+      counters: countersCopy,
+    });
   };
 
   handleReset = async () => {
-    // const countersCopy = await counters.map((c) => {
-    //   c.value = 0;
-    //   return c;
-    // });
-    // setCounters(countersCopy);
+    const countersCopy = await this.state.counters.map((c) => {
+      c.value = 0;
+      return c;
+    });
+
+    this.setState({
+      counters: countersCopy,
+    });
   };
 
   handleIncrement = async (counter) => {
-    // const countersCopy = await [...counters];
-    // const index = countersCopy.indexOf(counter);
-    // countersCopy[index] = { ...counter };
-    // countersCopy[index].value++;
-    // setCounters(countersCopy);
+    const countersCopy = [...this.state.counters];
+    const index = countersCopy.indexOf(counter);
+    countersCopy[index] = { ...counter };
+    countersCopy[index].value++;
+    this.setState({
+      counters: countersCopy,
+    });
   };
 
   handleDecrement = async (counter) => {
-    // const countersCopy = await [...counters];
-    // const index = countersCopy.indexOf(counter);
-    // countersCopy[index] = { ...counter };
-    // countersCopy[index].value--;
-    // setCounters(countersCopy);
+    const countersCopy = await [...this.state.counters];
+    const index = countersCopy.indexOf(counter);
+    countersCopy[index] = { ...counter };
+    countersCopy[index].value--;
+    this.setState({
+      counters: countersCopy,
+    });
   };
 
   render() {
