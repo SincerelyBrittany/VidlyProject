@@ -8,9 +8,9 @@
   </a>
 </p>
 
-# use docs to setup MongoDB
+# Use MongoDB docs to setup MongoDB
 
-- run: `sudo mongod --dbpath /System/Volumes/Data/data/db` to get Mongodb up and running
+- run: `sudo mongod --dbpath /System/Volumes/Data/data/db` to get mongodb up and running
 
 # Use backend docs/readme
 
