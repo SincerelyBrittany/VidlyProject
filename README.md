@@ -3,8 +3,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://www.example.com/">
-    <img src="main.png" alt="Logo" >
+  <a href="https://github.com/SincerelyBrittany/practice-mastering-react/blob/production-build/public/main.png">
+    <img src="https://github.com/SincerelyBrittany/practice-mastering-react/blob/production-build/public/main.png" alt="Logo" >
   </a>
 </p>
 
