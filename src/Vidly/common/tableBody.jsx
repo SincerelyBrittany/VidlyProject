@@ -3,7 +3,6 @@ import Liked from "../common/like";
 import _ from "lodash";
 
 const TableBody = ({ data, columns }) => {
-  //   const { data, columns } = props;
 
   const renderCell = (item, column) => {
     if (column.content) {
