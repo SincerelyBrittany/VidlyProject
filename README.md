@@ -14,7 +14,7 @@
 
 # Use backend docs/readme
 
-- clone https://github.com/SincerelyBrittany/practice-mastering-react-node-backend
+- clone https://github.com/SincerelyBrittany/vidly-node-backend
 - run `npm i`
 - run `node seed.js`
 - run `node index.js`
